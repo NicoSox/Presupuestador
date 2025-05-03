@@ -1,0 +1,101 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 40px;
+    background: #f9f9f9;
+  }
+
+  .document {
+    background: white;
+    max-width: 900px;
+    margin: auto;
+    padding: 40px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  }
+
+  h1, h2, h3 {
+    margin: 0;
+  }
+
+  .editable {
+    border-bottom: 1px dotted #ccc;
+    display: inline-block;
+    min-width: 100px;
+    min-height: 20px;
+    padding: 2px 4px;
+    background-color: #fffefa;
+  }
+
+  .section {
+    margin: 30px 0;
+  }
+
+  .row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+
+  .row .label {
+    width: 40%;
+    font-weight: bold;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+
+  table, th, td {
+    border: 1px solid #ccc;
+  }
+
+  th, td {
+    padding: 10px;
+    text-align: left;
+    min-width: 100px;
+  }
+
+  .editable-cell {
+    min-width: 100px;
+    min-height: 20px;
+    width: 100%;
+    display: inline-block;
+    padding: 4px;
+    box-sizing: border-box;
+    background-color: #fffefa;
+  }
+
+  .totales td {
+    font-weight: bold;
+  }
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 30px;
+  }
+
+  .logo-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .logo-title img {
+    height: 40px;
+  }
+
+  .logo-title strong {
+    font-size: 20px;
+  }
+
+  .title {
+    text-align: right;
+  }
+
+  .title h2 {
+    font-size: 28px;
+  }
