@@ -1,8 +1,11 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
+  <link rel="shortcut icon" href="/LOGO.png">
   <meta charset="UTF-8">
-  <title>Presupuesto - Pisox</title>
+
+  <title>Presupuestador - Pisox</title>
   <link rel="stylesheet" href="css/style.css">
   <style>
     /* Estilo para el selector de IVA */
@@ -205,9 +208,9 @@
         </tr>
         <tbody id="cuerpo-trabajos">
           <tr>
-            <td contenteditable="true" style="text-align: center;">Descripcion</td>
-            <td contenteditable="true" style="text-align: center;">0</td>
-            <td contenteditable="true" style="text-align: center;">0</td>
+            <td contenteditable="true" style="text-align: center;" onchange="calcularTotalesManoDeObra()"></td>
+            <td contenteditable="true" style="text-align: center;" onchange="calcularTotalesManoDeObra"></td>
+            <td contenteditable="true" style="text-align: center;" onchange="calcularTotalesManoDeObra"></td>
             <td contenteditable="false" style="text-align: center;">$0.00</td>
           </tr>
         </tbody>
@@ -311,29 +314,7 @@ function calcularTotalesMateriales() {
   // Actualizar el subtotal de materiales en el pie de la tabla
   document.getElementById("subtotal").innerText = `$${subtotalMateriales.toFixed(2)}`;
 }
-  // Función para agregar una fila de materiales
-  function agregarFilaMateriales() {
-  const tbody = document.getElementById("cuerpo-materiales"); // Obtiene el tbody de materiales
-  const nuevaFila = document.createElement("tr");
-  nuevaFila.innerHTML = `
-    <td contenteditable="true" style="text-align: center; font-weight: normal;"></td>
-    <td contenteditable="true" style="text-align: center; font-weight: normal;"></td>
-    <td contenteditable="true" style="text-align: center; font-weight: normal;"></td>
-    <td colspan="2" contenteditable="false" style="text-align: center; font-weight: normal;"></td>
-  `;
-  tbody.appendChild(nuevaFila); // Agrega la nueva fila al tbody de materiales
-  nuevaFila.addEventListener("input", calcularTotalesGenerales); // Recalcula los totales al editar
-}
 
-function eliminarFilaMateriales() {
-  const tbody = document.getElementById("cuerpo-materiales"); // Obtiene el tbody de materiales
-  if (tbody.rows.length > 0) { // Asegúrate de que haya filas de materiales para eliminar
-    tbody.removeChild(tbody.lastChild); // Elimina la última fila de materiales
-    calcularTotalesGenerales(); // Recalcula los totales
-  } else {
-    alert("No puedes eliminar la fila predeterminada de materiales.");
-  }
-}
  // Inicializa el número de presupuesto desde localStorage o usa un valor predeterminado
  let numeroPresupuesto = parseInt(localStorage.getItem("numeroPresupuesto")) || 481;
 
@@ -503,6 +484,15 @@ window.onload = function () {
   mostrarNumeroPresupuesto();
   mostrarFechaActual();
 };
+function eliminarFilaMateriales() {
+  const tbody = document.getElementById("cuerpo-materiales"); // Obtiene el tbody de materiales
+  if (tbody.rows.length > 0) { // Asegúrate de que haya filas de materiales para eliminar
+    tbody.removeChild(tbody.lastChild); // Elimina la última fila de materiales
+    calcularTotalesGenerales(); // Recalcula los totales
+  } else {
+    alert("No puedes eliminar la fila predeterminada de materiales.");
+  }
+}
 function calcularTotalesManoDeObra() {
   let subtotalTrabajos = 0;
 
@@ -553,9 +543,10 @@ function calcularTotalesGenerales() {
   document.getElementById("iva").innerText = `$${iva.toFixed(2)}`;
   document.getElementById("total").innerText = `$${totalGeneral.toFixed(2)}`;
 }
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   // Función para agregar una fila
   function agregarFila() {
-  const tbody = document.querySelector("#cuerpo-trabajos").addEventListener("input", calcularTotalesManoDeObra);
+  const tbody = document.getElementById("cuerpo-trabajos");
   const nuevaFila = document.createElement("tr");
   nuevaFila.innerHTML = `
     <td contenteditable="true" style="text-align: center;"></td>
@@ -565,36 +556,22 @@ function calcularTotalesGenerales() {
   `;
   tbody.appendChild(nuevaFila);
 
-  // Escuchar cambios en las celdas de cantidad y precio unitario
-  nuevaFila.querySelectorAll("td[contenteditable='true']").forEach(celda => {
-    celda.addEventListener("input", calcularTotalesManoDeObra);
-  });
+  // Recalcular totales al editar las celdas
+  nuevaFila.addEventListener("input", calcularTotalesGenerales);
 }
+// Configurar el estado inicial al cargar la página
 
-function agregarFilaMateriales() {
-  const tbody = document.getElementById("cuerpo-materiales");
-  const nuevaFila = document.createElement("tr");
-  nuevaFila.innerHTML = `
-    <td contenteditable="true" style="text-align: center;"></td>
-    <td contenteditable="true" style="text-align: center;"></td>
-    <td contenteditable="true" style="text-align: center;"></td>
-    <td contenteditable="false" style="text-align: center;">$0.00</td>
-  `;
-  tbody.appendChild(nuevaFila);
-
-  // Escuchar cambios en las celdas de cantidad y precio unitario
-  nuevaFila.querySelectorAll("td[contenteditable='true']").forEach(celda => {
-    celda.addEventListener("input", calcularTotalesMateriales);
-  });
-}
-  // Función para eliminar una fila
-  function eliminarFila() {
-    const tbody = document.querySelector("#tabla-trabajos tbody");
-    if (tbody.rows.length > 1) {
-      tbody.removeChild(tbody.lastChild);
-      calcularTotalesGenerales();
-    }
+function eliminarFila() {
+  const tbody = document.getElementById("cuerpo-trabajos"); // Obtiene el tbody de materiales
+  if (tbody.rows.length > 0) { // Asegúrate de que haya filas de materiales para eliminar
+    tbody.removeChild(tbody.lastChild); // Elimina la última fila de materiales
+    calcularTotalesGenerales(); // Recalcula los totales
+  } else {
+    alert("No puedes eliminar la fila predeterminada de materiales.");
   }
+}
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+
   //Muestra la fecha actual al cargar la página
   function mostrarFechaActual() {
   const fechaPresupuesto = document.getElementById("fecha-presupuesto");
