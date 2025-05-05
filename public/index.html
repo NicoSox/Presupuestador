@@ -347,6 +347,20 @@ window.onload = function () {
   mostrarFechaActual();
 };
 
+function generarArchivo(callback) {
+  // Aquí seleccionas el elemento que deseas capturar, por ejemplo, un contenedor con ID "presupuesto"
+  const elemento = document.getElementById('presupuesto');
+
+  html2canvas(elemento, {
+    scale: 2,  // Aumenta la resolución, especialmente útil en pantallas de alta densidad
+    useCORS: true,  // Asegura que los recursos externos se carguen correctamente
+    width: elemento.scrollWidth,  // Establece el ancho del área a capturar
+    height: elemento.scrollHeight,  // Establece la altura del área a capturar
+  }).then(canvas => {
+    callback(canvas);
+  });
+}
+
 function guardarComoImagen() {
   generarArchivo(canvas => {
     const link = document.createElement('a');
@@ -367,6 +381,7 @@ function guardarComoPDF() {
     incrementarNumeroPresupuesto(); // Incrementa el número de presupuesto
   });
 }
+
 // Función para actualizar la posición de los botones
  function actualizarPosicionBotones() {
   const tabla = document.getElementById("tabla-trabajos");
@@ -481,7 +496,7 @@ window.onload = function () {
   botonMateriales.innerText = "No incluidos";
 
   // Mostrar número de presupuesto y fecha actual
-  mostrarNumeroPresupuesto();
+
   mostrarFechaActual();
 };
 function eliminarFilaMateriales() {
@@ -496,17 +511,24 @@ function eliminarFilaMateriales() {
 function calcularTotalesManoDeObra() {
   let subtotalTrabajos = 0;
 
-  // Calcular totales de la tabla de mano de obra
   document.querySelectorAll("#cuerpo-trabajos tr").forEach(fila => {
-    const cantidad = parseFloat(fila.cells[1].innerText) || 0; // Cantidad
-    const precioUnitario = parseFloat(fila.cells[2].innerText.replace('$', '').replace(',', '.')) || 0; // Precio unitario
-    const total = cantidad * precioUnitario; // Total de la fila
-    fila.cells[3].innerText = isNaN(total) ? '' : `$${total.toFixed(2)}`; // Mostrar el total en la celda correspondiente
-    subtotalTrabajos += total; // Sumar al subtotal de trabajos
+    const cantidad = parseFloat(fila.cells[1].innerText) || 0;
+    const precioUnitario = parseFloat(fila.cells[2].innerText.replace(/[^0-9.-]+/g, '')) || 0;
+    const total = cantidad * precioUnitario;
+    fila.cells[3].innerText = isNaN(total) ? '' : `$${total.toFixed(2)}`;
+    subtotalTrabajos += total;
   });
 
   return subtotalTrabajos;
 }
+
+// <<--- ACÁ después de definir la función
+document.addEventListener('DOMContentLoaded', () => {
+  document.querySelector("#cuerpo-trabajos").addEventListener('input', () => {
+    calcularTotalesManoDeObra();
+  });
+});
+
 
 function calcularTotalesMateriales() {
   let subtotalMateriales = 0;
