@@ -3,8 +3,7 @@
 
 <head>
   <link rel="shortcut icon" href="/LOGO.png">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+  <meta charset="UTF-8">
 
   <title>Presupuestador - Pisox</title>
   <link rel="stylesheet" href="css/style.css">
@@ -136,6 +135,9 @@
     button:hover {
       opacity: 0.9;
     }
+    .row{
+      text-align: center;
+    }
   </style>
 </head>
 <body>
@@ -154,42 +156,47 @@
 
     <!-- Datos del cliente -->
     <div class="section">
-      <h3 style="text-align:center">Datos del Cliente</h3>
+      <h3 style="text-align:center">Datos del Cliente:</h3>
+      <br>
+      <br>
+
       <div class="row">
-        <div class="label">Presupuesto Nº:</div>
+        <div class="label" style="text-align:left">Presupuesto Nº:</div>
         <div class="editable" id="presupuesto-numero"></div>
       </div>
       <div class="row">
-        <div class="label">Fecha:</div>
+        <div class="label" style="text-align:left">Fecha:</div>
         <div class="editable" contenteditable="true" id="fecha-presupuesto"></div>
       </div>
       <div class="row">
-        <div class="label">Nombre del cliente:</div>
-        <div class="editable" contenteditable="true">Nombre completo</div>
+        <div class="label" style="text-align:left">Nombre del cliente:</div>
+        <div class="editable" contenteditable="true"></div>
       </div>
       <div class="row">
-        <div class="label">Teléfono:</div>
-        <div class="editable" contenteditable="true">(011) 1234-5678</div>
+        <div class="label" style="text-align:left">Teléfono:</div>
+        <div class="editable" contenteditable="true"></div>
       </div>
       <div class="row">
-        <div class="label">Domicilio:</div>
-        <div class="editable" contenteditable="true">Calle, número, ciudad</div>
+        <div class="label" style="text-align:left">Domicilio:</div>
+        <div class="editable" contenteditable="true"></div>
       </div>
     </div>
 
     <!-- Datos de la empresa -->
     <div class="section">
-      <h3 style="text-align:center">Nuestros datos</h3>
+      <h3 style="text-align:center" style="text-align:left">Nuestros datos:</h3>
+      <br>
+      <br>
       <div class="row">
-        <div class="label">Empresa:</div>
+        <div class="label" style="text-align:left">Empresa:</div>
         <div class="editable">Pisox</div>
       </div>
-      <div class="row">
-        <div class="label">Teléfono de contacto:</div>
+      <div class="row" >
+        <div class="label"style="text-align:left">Teléfono de contacto:</div>
         <div class="editable">(381) 4760701</div>
       </div>
       <div class="row">
-        <div class="label">Domicilio:</div>
+        <div class="label" style="text-align:left">Domicilio:</div>
         <div class="editable">Juan Bautista Alberdi 1489</div>
       </div>
     </div>
@@ -284,20 +291,37 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
 <script>
  // Función para calcular los totales de mano de obra 
-  function calcularTotalesManoDeObra() {
+function calcularTotalesManoDeObra() {
   let subtotalTrabajos = 0;
 
   // Calcular totales de la tabla de mano de obra
   document.querySelectorAll("#cuerpo-trabajos tr").forEach(fila => {
     const cantidad = parseFloat(fila.cells[1].innerText) || 0; // Cantidad
-    const precioUnitario = parseFloat(fila.cells[2].innerText.replace('$', '').replace(',', '.')) || 0; // Precio unitario
-    const total = cantidad * precioUnitario; // Total de la fila
-    fila.cells[3].innerText = isNaN(total) ? '' : `$${total.toFixed(2)}`; // Mostrar el total en la celda correspondiente
-    subtotalTrabajos += total; // Sumar al subtotal de trabajos
+
+    // Leer el precio unitario en formato argentino ($1.234,56)
+    const precioTexto = fila.cells[2].innerText.replace('$', '').trim();
+    const precioUnitario = parseFloat(precioTexto.replace(/\./g, '').replace(',', '.')) || 0;
+
+    const total = cantidad * precioUnitario;
+
+    // Mostrar el total en formato argentino con 2 decimales
+    fila.cells[3].innerText = isNaN(total)
+      ? ''
+      : `$${total.toLocaleString('es-AR', {
+          minimumFractionDigits: 2,
+          maximumFractionDigits: 2
+        })}`;
+
+    subtotalTrabajos += total;
   });
 
+
   // Actualizar el subtotal de mano de obra en el pie de la tabla
-  document.getElementById("subtotal").innerText = `$${subtotalTrabajos.toFixed(2)}`;
+  document.getElementById("subtotal").innerText = `$${subtotalTrabajos.toLocaleString('es-AR', {
+  minimumFractionDigits: 2,
+  maximumFractionDigits: 2
+})}`;
+
 }
 
 function calcularTotalesMateriales() {
@@ -509,19 +533,6 @@ function eliminarFilaMateriales() {
     alert("No puedes eliminar la fila predeterminada de materiales.");
   }
 }
-function calcularTotalesManoDeObra() {
-  let subtotalTrabajos = 0;
-
-  document.querySelectorAll("#cuerpo-trabajos tr").forEach(fila => {
-    const cantidad = parseFloat(fila.cells[1].innerText) || 0;
-    const precioUnitario = parseFloat(fila.cells[2].innerText.replace(/[^0-9.-]+/g, '')) || 0;
-    const total = cantidad * precioUnitario;
-    fila.cells[3].innerText = isNaN(total) ? '' : `$${total.toFixed(2)}`;
-    subtotalTrabajos += total;
-  });
-
-  return subtotalTrabajos;
-}
 
 // <<--- ACÁ después de definir la función
 document.addEventListener('DOMContentLoaded', () => {
@@ -537,11 +548,21 @@ function calcularTotalesMateriales() {
   // Calcular totales de la tabla de materiales
   document.querySelectorAll("#cuerpo-materiales tr").forEach(fila => {
     const cantidad = parseFloat(fila.cells[1].innerText) || 0; // Cantidad
-    const precioUnitario = parseFloat(fila.cells[2].innerText.replace('$', '').replace(',', '.')) || 0; // Precio unitario
-    const total = cantidad * precioUnitario; // Total de la fila
-    fila.cells[3].innerText = isNaN(total) ? '' : `$${total.toFixed(2)}`; // Mostrar el total en la celda correspondiente
-    subtotalMateriales += total; // Sumar al subtotal de materiales
+
+    // 👇 Esta línea es la mejora clave
+    const precioTexto = fila.cells[2].innerText.replace('$', '').trim();
+    const precioUnitario = parseFloat(precioTexto.replace(/\./g, '').replace(',', '.')) || 0;
+
+    const total = cantidad * precioUnitario;
+
+    // Mostrar el total en formato argentino con dos decimales
+    fila.cells[3].innerText = isNaN(total)
+      ? ''
+      : `$${total.toLocaleString('es-AR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+
+    subtotalMateriales += total;
   });
+
 
   return subtotalMateriales;
 }
@@ -562,9 +583,10 @@ function calcularTotalesGenerales() {
   const totalGeneral = subtotalGeneral + iva;
 
   // Actualizar los valores en la tabla
-  document.getElementById("subtotal").innerText = `$${subtotalGeneral.toFixed(2)}`;
-  document.getElementById("iva").innerText = `$${iva.toFixed(2)}`;
-  document.getElementById("total").innerText = `$${totalGeneral.toFixed(2)}`;
+ document.getElementById("subtotal").innerText = `$${subtotalGeneral.toLocaleString('es-AR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+document.getElementById("iva").innerText = `$${iva.toLocaleString('es-AR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+document.getElementById("total").innerText = `$${totalGeneral.toLocaleString('es-AR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   // Función para agregar una fila
