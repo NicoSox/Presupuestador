@@ -14,7 +14,8 @@
       background: transparent;
       font-size: 16px;
       font-family: inherit;
-      text-align: left; /* Alineado a la izquierda */
+      text-align: left;
+      /* Alineado a la izquierda */
       width: auto;
       appearance: none;
       -moz-appearance: none;
@@ -27,7 +28,8 @@
 
     .totales td {
       vertical-align: middle;
-      text-align: left; /* Alineado a la izquierda */
+      text-align: left;
+      /* Alineado a la izquierda */
     }
 
     .editable-cell {
@@ -67,62 +69,78 @@
       margin-bottom: 20px;
     }
 
-    th, td {
+    th,
+    td {
       border: 1px solid #ddd;
       padding: 8px;
     }
 
     th {
-    background-color: #f4f4f4; /* Fondo gris claro */
-    color: black; /* Texto negro */
-    text-align: center;
-  }
+      background-color: #f4f4f4;
+      /* Fondo gris claro */
+      color: black;
+      /* Texto negro */
+      text-align: center;
+    }
 
     tfoot td {
       font-weight: bold;
     }
 
     .table-title {
-    background-color: #f4f4f4; /* Fondo azul */
-    color: black; /* Texto blanco */
-    font-weight: bold;
-    text-align: center;
-    font-size: 18px;
-    padding: 10px;
-  }
-  #botones-accion button {
-  padding: 10px 15px;
-  font-size: 14px;
-  border-radius: 5px;
-  cursor: pointer;
-}
+      background-color: #f4f4f4;
+      /* Fondo azul */
+      color: black;
+      /* Texto blanco */
+      font-weight: bold;
+      text-align: center;
+      font-size: 18px;
+      padding: 10px;
+    }
 
-#botones-accion button:hover {
-  opacity: 0.9;
-}
-  /* Posicionar los botones sobre la fila */
-  .botones-accion {
-  position: absolute;
-  display: flex;
-  gap: 5px;
-  left: 0; /* Será ajustado dinámicamente con JavaScript */
-  top: 0; /* Será ajustado dinámicamente con JavaScript */
-  transform: translateY(-50%);
-  z-index: 1000; /* Asegura que los botones estén por encima de otros elementos */
-}
-.botones-accion {
-  position: absolute;
-  display: flex;
-  gap: 5px;
-  left: 0; /* Será ajustado dinámicamente con JavaScript */
-  top: 0; /* Será ajustado dinámicamente con JavaScript */
-  transform: translateY(-50%);
-  z-index: 1000; /* Asegura que los botones estén por encima de otros elementos */
-}
-/*oculta el boton*/
-.no-print { 
-  display: none;
-}
+    #botones-accion button {
+      padding: 10px 15px;
+      font-size: 14px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    #botones-accion button:hover {
+      opacity: 0.9;
+    }
+
+    /* Posicionar los botones sobre la fila */
+    .botones-accion {
+      position: absolute;
+      display: flex;
+      gap: 5px;
+      left: 0;
+      /* Será ajustado dinámicamente con JavaScript */
+      top: 0;
+      /* Será ajustado dinámicamente con JavaScript */
+      transform: translateY(-50%);
+      z-index: 1000;
+      /* Asegura que los botones estén por encima de otros elementos */
+    }
+
+    .botones-accion {
+      position: absolute;
+      display: flex;
+      gap: 5px;
+      left: 0;
+      /* Será ajustado dinámicamente con JavaScript */
+      top: 0;
+      /* Será ajustado dinámicamente con JavaScript */
+      transform: translateY(-50%);
+      z-index: 1000;
+      /* Asegura que los botones estén por encima de otros elementos */
+    }
+
+    /*oculta el boton*/
+    .no-print {
+      display: none;
+    }
+
     button {
       font-size: 16px;
       padding: 10px 20px;
@@ -135,11 +153,13 @@
     button:hover {
       opacity: 0.9;
     }
-    .row{
+
+    .row {
       text-align: center;
     }
   </style>
 </head>
+
 <body>
   <!-- Contenedor principal del documento -->
   <div class="document">
@@ -166,7 +186,7 @@
       </div>
       <div class="row">
         <div class="label" style="text-align:left">Fecha:</div>
-        <div class="editable" contenteditable="true" id="fecha-presupuesto"></div>
+        <div class="editable" contenteditable="false" id="fecha-presupuesto"></div>
       </div>
       <div class="row">
         <div class="label" style="text-align:left">Nombre del cliente:</div>
@@ -191,8 +211,8 @@
         <div class="label" style="text-align:left">Empresa:</div>
         <div class="editable">Pisox</div>
       </div>
-      <div class="row" >
-        <div class="label"style="text-align:left">Teléfono de contacto:</div>
+      <div class="row">
+        <div class="label" style="text-align:left">Teléfono de contacto:</div>
         <div class="editable">(381) 4760701</div>
       </div>
       <div class="row">
@@ -214,33 +234,34 @@
           <th>Precio unitario</th>
           <th>Total</th>
         </tr>
-        <tbody id="cuerpo-trabajos">
-          <tr>
-            <td contenteditable="true" style="text-align: center;" onchange="calcularTotalesManoDeObra()"></td>
-            <td contenteditable="true" style="text-align: center;" onchange="calcularTotalesManoDeObra"></td>
-            <td contenteditable="true" style="text-align: center;" onchange="calcularTotalesManoDeObra"></td>
-            <td contenteditable="false" style="text-align: center;">$0.00</td>
-          </tr>
-        </tbody>
-        <tr class="table-title">
-          <th colspan="4">
-            Materiales:
-            <button id="toggle-materiales" onclick="toggleMateriales()" style="background: none; border: none; color: black; cursor: pointer; font-size: inherit; padding: 0;">
-              No incluidos
-            </button>
-          </th>
+      <tbody id="cuerpo-trabajos">
+        <tr>
+          <td contenteditable="true" style="text-align: center;" onchange="calcularTotalesManoDeObra()"></td>
+          <td contenteditable="true" style="text-align: center;" onchange="calcularTotalesManoDeObra"></td>
+          <td contenteditable="true" style="text-align: center;" onchange="calcularTotalesManoDeObra"></td>
+          <td contenteditable="false" style="text-align: center;">$0.00</td>
         </tr>
-        <tr id="materiales-subtitulos" style="display: none; background-color: #f4f4f4; text-align: center;">
-          <th>Material</th>
-          <th>Cantidad</th>
-          <th>Precio unitario</th>
-          <th>Total</th>
-        </tr>
+      </tbody>
+      <tr class="table-title">
+        <th colspan="4">
+          Materiales:
+          <button id="toggle-materiales" onclick="toggleMateriales()"
+            style="background: none; border: none; color: black; cursor: pointer; font-size: inherit; padding: 0;">
+            No incluidos
+          </button>
+        </th>
+      </tr>
+      <tr id="materiales-subtitulos" style="display: none; background-color: #f4f4f4; text-align: center;">
+        <th>Material</th>
+        <th>Cantidad</th>
+        <th>Precio unitario</th>
+        <th>Total</th>
+      </tr>
       </thead>
       <tbody id="cuerpo-materiales">
-        
+
       </tbody>
-    
+
       <!-- Pie de tabla -->
       <tfoot>
         <tr class="totales">
@@ -249,7 +270,7 @@
         </tr>
         <tr class="totales">
           <td colspan="3">
-            IVA 
+            IVA
             <select id="iva-porcentaje" onchange="calcularTotalesGenerales()">
               <option value="0" selected>0% (Exento)</option>
               <option value="10.5">10.5% (Tasa reducida)</option>
@@ -265,372 +286,381 @@
         </tr>
       </tfoot>
     </table>
-    
+
     <!-- Botones de acción -->
     <div id="botones-accion">
       <!-- Botones para trabajos -->
       <button onclick="agregarFila()" style="background-color: #007bff; color: white;">➕ Trabajo</button>
       <button onclick="eliminarFila()" style="background-color: #dc3545; color: white;">➖ Trabajo</button>
-    
+
       <!-- Botones para materiales -->
       <button onclick="agregarFilaMateriales()" style="background-color: #007bff; color: white;">➕ Material</button>
       <button onclick="eliminarFilaMateriales()" style="background-color: #dc3545; color: white;">➖ Material</button>
     </div>
 
     <!-- Nota de validez -->
-    <p style="text-align: center;">Este presupuesto tiene una validez de hasta 30 días luego de emitido, sin excepciones.</p>
+    <p style="text-align: center;">Este presupuesto tiene una validez de hasta 30 días luego de emitido, sin
+      excepciones.</p>
   </div>
 
   <div style="text-align: center; margin-top: 40px;">
-    <button onclick="guardarComoImagen()" style="background-color: #007bff; color: white;">Emitir presupuesto (Imagen)</button>
-    <button onclick="guardarComoPDF()" style="background-color: #28a745; color: white;">Emitir presupuesto (PDF)</button>
+    <button onclick="guardarComoImagen()" style="background-color: #007bff; color: white;">Emitir presupuesto
+      (Imagen)</button>
+    <button onclick="guardarComoPDF()" style="background-color: #28a745; color: white;">Emitir presupuesto
+      (PDF)</button>
   </div>
 
   <!-- Scripts -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
-<script>
- // Función para calcular los totales de mano de obra 
-function calcularTotalesManoDeObra() {
-  let subtotalTrabajos = 0;
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+  <script>
+    // Función para calcular los totales de mano de obra 
+    function calcularTotalesManoDeObra() {
+      let subtotalTrabajos = 0;
 
-  // Calcular totales de la tabla de mano de obra
-  document.querySelectorAll("#cuerpo-trabajos tr").forEach(fila => {
-    const cantidad = parseFloat(fila.cells[1].innerText) || 0; // Cantidad
+      // Calcular totales de la tabla de mano de obra
+      document.querySelectorAll("#cuerpo-trabajos tr").forEach(fila => {
+        const cantidad = parseFloat(fila.cells[1].innerText) || 0; // Cantidad
 
-    // Leer el precio unitario en formato argentino ($1.234,56)
-    const precioTexto = fila.cells[2].innerText.replace('$', '').trim();
-    const precioUnitario = parseFloat(precioTexto.replace(/\./g, '').replace(',', '.')) || 0;
+        // Leer el precio unitario en formato argentino ($1.234,56)
+        const precioTexto = fila.cells[2].innerText.replace('$', '').trim();
+        const precioUnitario = parseFloat(precioTexto.replace(/\./g, '').replace(',', '.')) || 0;
 
-    const total = cantidad * precioUnitario;
+        const total = cantidad * precioUnitario;
 
-    // Mostrar el total en formato argentino con 2 decimales
-    fila.cells[3].innerText = isNaN(total)
-      ? ''
-      : `$${total.toLocaleString('es-AR', {
-          minimumFractionDigits: 2,
-          maximumFractionDigits: 2
-        })}`;
+        // Mostrar el total en formato argentino con 2 decimales
+        fila.cells[3].innerText = isNaN(total)
+          ? ''
+          : `$${total.toLocaleString('es-AR', {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
+          })}`;
 
-    subtotalTrabajos += total;
-  });
-
-
-  // Actualizar el subtotal de mano de obra en el pie de la tabla
-  document.getElementById("subtotal").innerText = `$${subtotalTrabajos.toLocaleString('es-AR', {
-  minimumFractionDigits: 2,
-  maximumFractionDigits: 2
-})}`;
-return subtotalTrabajos;
-}
-
-function calcularTotalesMateriales() {
-  let subtotalMateriales = 0;
-
-  // Calcular totales de la tabla de materiales
-  document.querySelectorAll("#cuerpo-materiales tr").forEach(fila => {
-    const cantidad = parseFloat(fila.cells[1].innerText) || 0; // Cantidad
-    const precioUnitario = parseFloat(fila.cells[2].innerText.replace('$', '').replace(',', '.')) || 0; // Precio unitario
-    const total = cantidad * precioUnitario; // Total de la fila
-    fila.cells[3].innerText = isNaN(total) ? '' : `$${total.toFixed(2)}`; // Mostrar el total en la celda correspondiente
-    subtotalMateriales += total; // Sumar al subtotal de materiales
-  });
-
-  // Actualizar el subtotal de materiales en el pie de la tabla
-  document.getElementById("subtotal").innerText = `$${subtotalMateriales.toFixed(2)}`;
-}
-
- // Inicializa el número de presupuesto desde localStorage o usa un valor predeterminado
- let numeroPresupuesto = parseInt(localStorage.getItem("numeroPresupuesto")) || 481;
-
-function mostrarNumeroPresupuesto() {
-  const presupuestoNumero = document.getElementById("presupuesto-numero");
-  if (presupuestoNumero) {
-    presupuestoNumero.innerText = numeroPresupuesto.toString().padStart(3, "0"); // Formato con ceros iniciales
-  }
-}
-
-function incrementarNumeroPresupuesto() {
-  numeroPresupuesto++; // Incrementa el número de presupuesto
-  localStorage.setItem("numeroPresupuesto", numeroPresupuesto); // Guarda el nuevo número en localStorage
-  mostrarNumeroPresupuesto(); // Actualiza el número en el DOM
-}
-
-function mostrarFechaActual() {
-  const fechaPresupuesto = document.getElementById("fecha-presupuesto");
-  if (fechaPresupuesto) {
-    const hoy = new Date();
-    const dia = hoy.getDate().toString().padStart(2, "0");
-    const mes = (hoy.getMonth() + 1).toString().padStart(2, "0"); // Los meses empiezan en 0
-    const anio = hoy.getFullYear();
-    fechaPresupuesto.innerText = `${dia}/${mes}/${anio}`; // Formato DD/MM/YYYY
-  }
-}
-
-window.onload = function () {
-  mostrarNumeroPresupuesto();
-  mostrarFechaActual();
-};
-
-function generarArchivo(callback) {
-  // Aquí seleccionas el elemento que deseas capturar, por ejemplo, un contenedor con ID "presupuesto"
-  const elemento = document.getElementById('presupuesto');
-
-  html2canvas(elemento, {
-    scale: 2,  // Aumenta la resolución, especialmente útil en pantallas de alta densidad
-    useCORS: true,  // Asegura que los recursos externos se carguen correctamente
-    width: elemento.scrollWidth,  // Establece el ancho del área a capturar
-    height: elemento.scrollHeight,  // Establece la altura del área a capturar
-  }).then(canvas => {
-    callback(canvas);
-  });
-}
-
-function guardarComoImagen() {
-  generarArchivo(canvas => {
-    const link = document.createElement('a');
-    link.download = 'presupuesto.jpg';
-    link.href = canvas.toDataURL('image/jpeg', 1.0);
-    link.click();
-    incrementarNumeroPresupuesto(); // Incrementa el número de presupuesto
-  });
-}
-
-function guardarComoPDF() {
-  generarArchivo(canvas => {
-    const { jsPDF } = window.jspdf;
-    const pdf = new jsPDF();
-    const imgData = canvas.toDataURL('image/jpeg', 1.0);
-    pdf.addImage(imgData, 'JPEG', 10, 10, 190, 0);
-    pdf.save('presupuesto.pdf');
-    incrementarNumeroPresupuesto(); // Incrementa el número de presupuesto
-  });
-}
-
-// Función para actualizar la posición de los botones
- function actualizarPosicionBotones() {
-  const tabla = document.getElementById("tabla-trabajos");
-  const botones = document.getElementById("botones-accion");
-
-  if (!tabla || !botones) {
-    console.error("No se encontró la tabla o el contenedor de botones.");
-    return;
-  }
-
-  const ultimaFila = tabla.querySelector("tbody tr:last-child");
-  if (!ultimaFila) {
-    console.error("No se encontró la última fila.");
-    return;
-  }
-
-  const filaRect = ultimaFila.getBoundingClientRect();
-
-  // Ajustar la posición de los botones al lado derecho de la última fila
-  botones.style.top = `${filaRect.top + window.scrollY}px`;
-  botones.style.left = `${filaRect.right + 10}px`; // Posición a la derecha de la fila
-}
+        subtotalTrabajos += total;
+      });
 
 
-// Actualizar la posición de los botones al cargar la página
-window.addEventListener("load", actualizarPosicionBotones);
-window.addEventListener("resize", actualizarPosicionBotones);
-
-// Ocultar los botones antes de generar PDF o imagen
-function ocultarBotones() {
-  console.log("Ocultando botones...");
-  document.getElementById("botones-accion").classList.add("no-print");
-}
-
-function mostrarBotones() {
-  console.log("Mostrando botones...");
-  document.getElementById("botones-accion").classList.remove("no-print");
-}
-
-// Función para guardar como imagen
-function generarArchivo(callback) {
-  ocultarBotones();
-  const element = document.querySelector('.document');
-  html2canvas(element, {
-    scale: 2,
-    useCORS: true,
-    backgroundColor: "#ffffff"
-  }).then(canvas => {
-    callback(canvas);
-    mostrarBotones();
-  }).catch(error => {
-    console.error("Error al generar archivo:", error);
-    mostrarBotones();
-  });
-}
-
-// Función para alternar la visibilidad de la tabla de materiales
-function toggleMateriales() {
-  const cuerpoMateriales = document.getElementById("cuerpo-materiales");
-  const subtitulosMateriales = document.getElementById("materiales-subtitulos");
-  const botonMateriales = document.getElementById("toggle-materiales");
-
-  // Alternar visibilidad
-  if (cuerpoMateriales.style.display === "none" || cuerpoMateriales.style.display === "") {
-    // Mostrar la tabla de materiales
-    cuerpoMateriales.style.display = "table-row-group";
-    subtitulosMateriales.style.display = "table-row";
-    botonMateriales.innerText = "Incluidos";
-
-    // Agregar una fila vacía si no hay filas
-    if (cuerpoMateriales.rows.length === 0) {
-      agregarFilaMateriales();
-    }
-  } else {
-    // Ocultar la tabla de materiales
-    cuerpoMateriales.style.display = "none";
-    subtitulosMateriales.style.display = "none";
-    botonMateriales.innerText = "No incluidos";
-
-    // Eliminar todas las filas de materiales al ocultar
-    while (cuerpoMateriales.firstChild) {
-      cuerpoMateriales.removeChild(cuerpoMateriales.firstChild);
+      // Actualizar el subtotal de mano de obra en el pie de la tabla
+      document.getElementById("subtotal").innerText = `$${subtotalTrabajos.toLocaleString('es-AR', {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+      })}`;
+      return subtotalTrabajos;
     }
 
-    calcularTotalesGenerales(); // Recalcular los totales
-  }
-}
+    function calcularTotalesMateriales() {
+      let subtotalMateriales = 0;
 
-function agregarFilaMateriales() {
-  const tbody = document.getElementById("cuerpo-materiales");
-  const nuevaFila = document.createElement("tr");
-  nuevaFila.innerHTML = `
+      // Calcular totales de la tabla de materiales
+      document.querySelectorAll("#cuerpo-materiales tr").forEach(fila => {
+        const cantidad = parseFloat(fila.cells[1].innerText) || 0; // Cantidad
+        const precioUnitario = parseFloat(fila.cells[2].innerText.replace('$', '').replace(',', '.')) || 0; // Precio unitario
+        const total = cantidad * precioUnitario; // Total de la fila
+        fila.cells[3].innerText = isNaN(total) ? '' : `$${total.toFixed(2)}`; // Mostrar el total en la celda correspondiente
+        subtotalMateriales += total; // Sumar al subtotal de materiales
+      });
+
+      // Actualizar el subtotal de materiales en el pie de la tabla
+      document.getElementById("subtotal").innerText = `$${subtotalMateriales.toFixed(2)}`;
+    }
+
+    // Inicializa el número de presupuesto desde localStorage o usa un valor predeterminado
+    let numeroPresupuesto = parseInt(localStorage.getItem("numeroPresupuesto")) || 481;
+
+    function mostrarNumeroPresupuesto() {
+      const presupuestoNumero = document.getElementById("presupuesto-numero");
+      if (presupuestoNumero) {
+        presupuestoNumero.innerText = numeroPresupuesto.toString().padStart(3, "0"); // Formato con ceros iniciales
+      }
+    }
+
+    function incrementarNumeroPresupuesto() {
+      numeroPresupuesto++; // Incrementa el número de presupuesto
+      localStorage.setItem("numeroPresupuesto", numeroPresupuesto); // Guarda el nuevo número en localStorage
+      mostrarNumeroPresupuesto(); // Actualiza el número en el DOM
+    }
+
+    function mostrarFechaActual() {
+      const fechaPresupuesto = document.getElementById("fecha-presupuesto");
+      if (fechaPresupuesto) {
+        const hoy = new Date();
+        const dia = hoy.getDate().toString().padStart(2, "0");
+        const mes = (hoy.getMonth() + 1).toString().padStart(2, "0"); // Los meses empiezan en 0
+        const anio = hoy.getFullYear();
+        fechaPresupuesto.innerText = `${dia}/${mes}/${anio}`; // Formato DD/MM/YYYY
+      }
+    }
+
+    window.onload = function () {
+      mostrarNumeroPresupuesto();
+      mostrarFechaActual();
+    };
+
+    function generarArchivo(callback) {
+      // Aquí seleccionas el elemento que deseas capturar, por ejemplo, un contenedor con ID "presupuesto"
+      const elemento = document.getElementById('presupuesto');
+
+      html2canvas(elemento, {
+        scale: 2,  // Aumenta la resolución, especialmente útil en pantallas de alta densidad
+        useCORS: true,  // Asegura que los recursos externos se carguen correctamente
+        width: elemento.scrollWidth,  // Establece el ancho del área a capturar
+        height: elemento.scrollHeight,  // Establece la altura del área a capturar
+      }).then(canvas => {
+        callback(canvas);
+      });
+    }
+
+    function guardarComoImagen() {
+      generarArchivo(canvas => {
+        const link = document.createElement('a');
+        link.download = 'presupuesto.jpg';
+        link.href = canvas.toDataURL('image/jpeg', 1.0);
+        link.click();
+        incrementarNumeroPresupuesto(); // Incrementa el número de presupuesto
+      });
+    }
+
+    function guardarComoPDF() {
+      generarArchivo(canvas => {
+        const { jsPDF } = window.jspdf;
+        const pdf = new jsPDF();
+        const imgData = canvas.toDataURL('image/jpeg', 1.0);
+        pdf.addImage(imgData, 'JPEG', 10, 10, 190, 0);
+        pdf.save('presupuesto.pdf');
+        incrementarNumeroPresupuesto(); // Incrementa el número de presupuesto
+      });
+    }
+
+    // Función para actualizar la posición de los botones
+    function actualizarPosicionBotones() {
+      const tabla = document.getElementById("tabla-presupuesto"); // <-- corregido
+      const botones = document.getElementById("botones-accion");
+
+      if (!tabla || !botones) {
+        console.error("No se encontró la tabla o el contenedor de botones.");
+        return;
+      }
+
+      const ultimaFila = tabla.querySelector("tbody tr:last-child");
+      if (!ultimaFila) {
+        console.error("No se encontró la última fila.");
+        return;
+      }
+
+      const filaRect = ultimaFila.getBoundingClientRect();
+
+      // Ajustar la posición de los botones al lado derecho de la última fila
+      botones.style.top = `${filaRect.top + window.scrollY}px`;
+      botones.style.left = `${filaRect.right + 10}px`; // Posición a la derecha de la fila
+    }
+
+
+    // Actualizar la posición de los botones al cargar la página
+    window.addEventListener("load", actualizarPosicionBotones);
+    window.addEventListener("resize", actualizarPosicionBotones);
+
+    // Ocultar los botones antes de generar PDF o imagen
+    function ocultarBotones() {
+      console.log("Ocultando botones...");
+      document.getElementById("botones-accion").classList.add("no-print");
+    }
+
+    function mostrarBotones() {
+      console.log("Mostrando botones...");
+      document.getElementById("botones-accion").classList.remove("no-print");
+    }
+
+    // Función para guardar como imagen
+    function generarArchivo(callback) {
+      ocultarBotones();
+      const element = document.querySelector('.document');
+      html2canvas(element, {
+        scale: 2,
+        useCORS: true,
+        backgroundColor: "#ffffff"
+      }).then(canvas => {
+        callback(canvas);
+        mostrarBotones();
+      }).catch(error => {
+        console.error("Error al generar archivo:", error);
+        mostrarBotones();
+      });
+    }
+
+    // Función para alternar la visibilidad de la tabla de materiales
+    function toggleMateriales() {
+      const cuerpoMateriales = document.getElementById("cuerpo-materiales");
+      const subtitulosMateriales = document.getElementById("materiales-subtitulos");
+      const botonMateriales = document.getElementById("toggle-materiales");
+
+      // Alternar visibilidad
+      if (cuerpoMateriales.style.display === "none" || cuerpoMateriales.style.display === "") {
+        // Mostrar la tabla de materiales
+        cuerpoMateriales.style.display = "table-row-group";
+        subtitulosMateriales.style.display = "table-row";
+        botonMateriales.innerText = "Incluidos";
+
+        // Agregar una fila vacía si no hay filas
+        if (cuerpoMateriales.rows.length === 0) {
+          agregarFilaMateriales();
+        }
+      } else {
+        // Ocultar la tabla de materiales
+        cuerpoMateriales.style.display = "none";
+        subtitulosMateriales.style.display = "none";
+        botonMateriales.innerText = "No incluidos";
+
+        // Eliminar todas las filas de materiales al ocultar
+        while (cuerpoMateriales.firstChild) {
+          cuerpoMateriales.removeChild(cuerpoMateriales.firstChild);
+        }
+
+        calcularTotalesGenerales(); // Recalcular los totales
+      }
+    }
+
+    function agregarFilaMateriales() {
+      const tbody = document.getElementById("cuerpo-materiales");
+      const nuevaFila = document.createElement("tr");
+      nuevaFila.innerHTML = `
     <td contenteditable="true" style="text-align: center;"></td>
     <td contenteditable="true" style="text-align: center;"></td>
     <td contenteditable="true" style="text-align: center;"></td>
     <td contenteditable="false" style="text-align: center;">$0.00</td>
   `;
-  tbody.appendChild(nuevaFila);
+      tbody.appendChild(nuevaFila);
 
-  // Recalcular totales al editar las celdas
-  nuevaFila.addEventListener("input", calcularTotalesGenerales);
-}
-// Configurar el estado inicial al cargar la página
-window.onload = function () {
-  const cuerpoMateriales = document.getElementById("cuerpo-materiales");
-  const subtitulosMateriales = document.getElementById("materiales-subtitulos");
-  const botonMateriales = document.getElementById("toggle-materiales");
+      // Recalcular totales al editar las celdas
+      nuevaFila.addEventListener("input", calcularTotalesGenerales);
+    }
+    // Configurar el estado inicial al cargar la página
+    window.onload = function () {
+      const cuerpoMateriales = document.getElementById("cuerpo-materiales");
+      const subtitulosMateriales = document.getElementById("materiales-subtitulos");
+      const botonMateriales = document.getElementById("toggle-materiales");
 
-  // Asegúrate de que los materiales estén ocultos inicialmente
-  cuerpoMateriales.style.display = "none";
-  subtitulosMateriales.style.display = "none";
-  botonMateriales.innerText = "No incluidos";
+      // Asegúrate de que los materiales estén ocultos inicialmente
+      cuerpoMateriales.style.display = "none";
+      subtitulosMateriales.style.display = "none";
+      botonMateriales.innerText = "No incluidos";
 
-  // Mostrar número de presupuesto y fecha actual
+      // Mostrar número de presupuesto y fecha actual
+      mostrarNumeroPresupuesto();
+      mostrarFechaActual();
+    };
+    function eliminarFilaMateriales() {
+      const tbody = document.getElementById("cuerpo-materiales"); // Obtiene el tbody de materiales
+      if (tbody.rows.length > 0) { // Asegúrate de que haya filas de materiales para eliminar
+        tbody.removeChild(tbody.lastChild); // Elimina la última fila de materiales
+        calcularTotalesGenerales(); // Recalcula los totales
+      } else {
+        alert("No puedes eliminar la fila predeterminada de materiales.");
+      }
+    }
 
-  mostrarFechaActual();
-};
-function eliminarFilaMateriales() {
-  const tbody = document.getElementById("cuerpo-materiales"); // Obtiene el tbody de materiales
-  if (tbody.rows.length > 0) { // Asegúrate de que haya filas de materiales para eliminar
-    tbody.removeChild(tbody.lastChild); // Elimina la última fila de materiales
-    calcularTotalesGenerales(); // Recalcula los totales
-  } else {
-    alert("No puedes eliminar la fila predeterminada de materiales.");
-  }
-}
-
-// <<--- ACÁ después de definir la función
-document.addEventListener('DOMContentLoaded', () => {
-  document.querySelector("#cuerpo-trabajos").addEventListener('input', () => {
-    calcularTotalesManoDeObra();
-  });
-});
-
-
-function calcularTotalesMateriales() {
-  let subtotalMateriales = 0;
-
-  // Calcular totales de la tabla de materiales
-  document.querySelectorAll("#cuerpo-materiales tr").forEach(fila => {
-    const cantidad = parseFloat(fila.cells[1].innerText) || 0; // Cantidad
-
-    // 👇 Esta línea es la mejora clave
-    const precioTexto = fila.cells[2].innerText.replace('$', '').trim();
-    const precioUnitario = parseFloat(precioTexto.replace(/\./g, '').replace(',', '.')) || 0;
-
-    const total = cantidad * precioUnitario;
-
-    // Mostrar el total en formato argentino con dos decimales
-    fila.cells[3].innerText = isNaN(total)
-      ? ''
-      : `$${total.toLocaleString('es-AR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
-
-    subtotalMateriales += total;
-  });
+    // <<--- ACÁ después de definir la función
+    document.addEventListener('DOMContentLoaded', () => {
+      document.querySelector("#cuerpo-trabajos").addEventListener('input', () => {
+        calcularTotalesManoDeObra();
+      });
+    });
 
 
-  return subtotalMateriales;
-}
+    function calcularTotalesMateriales() {
+      let subtotalMateriales = 0;
 
-// Función para calcular los totales
-function calcularTotalesGenerales() {
-  const subtotalTrabajos = calcularTotalesManoDeObra();
-  const subtotalMateriales = calcularTotalesMateriales();
+      // Calcular totales de la tabla de materiales
+      document.querySelectorAll("#cuerpo-materiales tr").forEach(fila => {
+        const cantidad = parseFloat(fila.cells[1].innerText) || 0; // Cantidad
 
-  // Calcular subtotal general
-  const subtotalGeneral = subtotalTrabajos + subtotalMateriales;
+        // 👇 Esta línea es la mejora clave
+        const precioTexto = fila.cells[2].innerText.replace('$', '').trim();
+        const precioUnitario = parseFloat(precioTexto.replace(/\./g, '').replace(',', '.')) || 0;
 
-  // Calcular IVA
-  const ivaPorcentaje = parseFloat(document.getElementById("iva-porcentaje").value) || 0;
-  const iva = (subtotalGeneral * ivaPorcentaje) / 100;
+        const total = cantidad * precioUnitario;
 
-  // Calcular total general
-  const totalGeneral = subtotalGeneral + iva;
+        // Mostrar el total en formato argentino con dos decimales
+        fila.cells[3].innerText = isNaN(total)
+          ? ''
+          : `$${total.toLocaleString('es-AR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
 
-  // Actualizar los valores en la tabla
- document.getElementById("subtotal").innerText = `$${subtotalGeneral.toLocaleString('es-AR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
-document.getElementById("iva").innerText = `$${iva.toLocaleString('es-AR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
-document.getElementById("total").innerText = `$${totalGeneral.toLocaleString('es-AR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+        subtotalMateriales += total;
+      });
 
-}
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  // Función para agregar una fila
-  function agregarFila() {
-  const tbody = document.getElementById("cuerpo-trabajos");
-  const nuevaFila = document.createElement("tr");
-  nuevaFila.innerHTML = `
+
+      return subtotalMateriales;
+    }
+
+    // Función para calcular los totales
+    function calcularTotalesGenerales() {
+      const subtotalTrabajos = calcularTotalesManoDeObra();
+      const subtotalMateriales = calcularTotalesMateriales();
+
+      // Calcular subtotal general
+      const subtotalGeneral = subtotalTrabajos + subtotalMateriales;
+
+      // Calcular IVA
+      const ivaPorcentaje = parseFloat(document.getElementById("iva-porcentaje").value) || 0;
+      const iva = (subtotalGeneral * ivaPorcentaje) / 100;
+
+      // Calcular total general
+      const totalGeneral = subtotalGeneral + iva;
+
+      // Actualizar los valores en la tabla
+      document.getElementById("subtotal").innerText = `$${subtotalGeneral.toLocaleString('es-AR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+      document.getElementById("iva").innerText = `$${iva.toLocaleString('es-AR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+      document.getElementById("total").innerText = `$${totalGeneral.toLocaleString('es-AR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+
+    }
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // Función para agregar una fila
+    function agregarFila() {
+      const tbody = document.getElementById("cuerpo-trabajos");
+      const nuevaFila = document.createElement("tr");
+      nuevaFila.innerHTML = `
     <td contenteditable="true" style="text-align: center;"></td>
     <td contenteditable="true" style="text-align: center;"></td>
     <td contenteditable="true" style="text-align: center;"></td>
     <td contenteditable="false" style="text-align: center;">$0.00</td>
   `;
-  tbody.appendChild(nuevaFila);
+      tbody.appendChild(nuevaFila);
 
-  // Recalcular totales al editar las celdas
-  nuevaFila.addEventListener("input", calcularTotalesGenerales);
-}
-// Configurar el estado inicial al cargar la página
+      // Recalcular totales al editar las celdas
+      nuevaFila.addEventListener("input", calcularTotalesGenerales);
+    }
+    // Configurar el estado inicial al cargar la página
 
-function eliminarFila() {
-  const tbody = document.getElementById("cuerpo-trabajos"); // Obtiene el tbody de materiales
-  if (tbody.rows.length > 0) { // Asegúrate de que haya filas de materiales para eliminar
-    tbody.removeChild(tbody.lastChild); // Elimina la última fila de materiales
-    calcularTotalesGenerales(); // Recalcula los totales
-  } else {
-    alert("No puedes eliminar la fila predeterminada de materiales.");
-  }
-}
-//////////////////////////////////////////////////////////////////////////////////////////////////////////
+    function eliminarFila() {
+      const tbody = document.getElementById("cuerpo-trabajos"); // Obtiene el tbody de materiales
+      if (tbody.rows.length > 0) { // Asegúrate de que haya filas de materiales para eliminar
+        tbody.removeChild(tbody.lastChild); // Elimina la última fila de materiales
+        calcularTotalesGenerales(); // Recalcula los totales
+      } else {
+        alert("No puedes eliminar la fila predeterminada de materiales.");
+      }
+    }
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-  //Muestra la fecha actual al cargar la página
-  function mostrarFechaActual() {
-  const fechaPresupuesto = document.getElementById("fecha-presupuesto");
-  if (fechaPresupuesto) {
-    const hoy = new Date();
-    const dia = hoy.getDate().toString().padStart(2, "0");
-    const mes = (hoy.getMonth() + 1).toString().padStart(2, "0"); // Los meses empiezan en 0
-    const anio = hoy.getFullYear();
-    fechaPresupuesto.innerText = `${dia}/${mes}/${anio}`; // Formato DD/MM/YYYY
-  }
-}
+    //Muestra la fecha actual al cargar la página
+    function mostrarFechaActual() {
+      const fechaPresupuesto = document.getElementById("fecha-presupuesto");
+      if (fechaPresupuesto) {
+        const hoy = new Date();
+        const dia = hoy.getDate().toString().padStart(2, "0");
+        const mes = (hoy.getMonth() + 1).toString().padStart(2, "0"); // Los meses empiezan en 0
+        const anio = hoy.getFullYear();
+        fechaPresupuesto.innerText = `${dia}/${mes}/${anio}`; // Formato DD/MM/YYYY
+      }
+    }
 
-  // Escuchar cambios en las celdas para recalcular totales automáticamente
-  document.querySelectorAll("#tabla-trabajos tbody")[0].addEventListener("input", calcularTotalesGenerales);
-</script>
+    // Escuchar cambios en las celdas para recalcular totales automáticamente
+    // ...existing code...
+    const cuerpoTrabajos = document.getElementById("cuerpo-trabajos");
+    if (cuerpoTrabajos) {
+      cuerpoTrabajos.addEventListener("input", calcularTotalesGenerales);
+    }
+    // ...existing code...
+  </script>
 </body>
+
 </html>

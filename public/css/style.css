@@ -1,3 +1,30 @@
+
+/* Fuerza modo claro aunque el usuario tenga dark mode */
+@media (prefers-color-scheme: dark) {
+  html, body, .document {
+    background: #fff !important;
+    color: #000 !important;
+  }
+  table, th, td {
+    background: #fff !important;
+    color: #000 !important;
+    border-color: #ccc !important;
+  }
+}
+
+/*Hace responisve el documento*/
+@media (max-width: 600px) {
+  .document {
+    padding: 10px;
+    max-width: 100%;
+    margin: 0;
+    border-radius: 0;
+    box-shadow: none;
+  }
+  body {
+    padding: 0;
+  }
+}
 body {
     font-family: Arial, sans-serif;
     margin: 0;
