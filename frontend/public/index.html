@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <link rel="shortcut icon" href="/LOGO.png">
+  <meta charset="UTF-8">
+
+  <title>Presupuestador - Pisox</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    /* Estilos existentes */
+    #iva-porcentaje {
+      border: none;
+      background: transparent;
+      font-size: 16px;
+      font-family: inherit;
+      text-align: left;
+      width: auto;
+      appearance: none;
+      -moz-appearance: none;
+      -webkit-appearance: none;
+    }
+
+    #iva-porcentaje:focus {
+      outline: none;
+    }
+
+    .totales td {
+      vertical-align: middle;
+      text-align: left;
+    }
+
+    .editable-cell {
+      padding: 5px;
+      text-align: center;
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .logo-title {
+      display: flex;
+      align-items: center;
+    }
+
+    .logo-title img {
+      height: 50px;
+      margin-right: 10px;
+    }
+
+    .title h2 {
+      margin: 0;
+    }
+
+    .section {
+      position: relative;
+      margin-bottom: 20px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 20px;
+      page-break-inside: avoid; /* Evitar salto dentro de la tabla */
+    }
+
+    th,
+    td {
+      border: 1px solid #ddd;
+      padding: 8px;
+    }
+
+    th {
+      background-color: #f4f4f4;
+      color: black;
+      text-align: center;
+    }
+
+    tfoot td {
+      font-weight: bold;
+    }
+
+    .table-title {
+      background-color: #f4f4f4;
+      color: black;
+      font-weight: bold;
+      text-align: center;
+      font-size: 18px;
+      padding: 10px;
+    }
+
+    #botones-accion button {
+      padding: 10px 15px;
+      font-size: 14px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    #botones-accion button:hover {
+      opacity: 0.9;
+    }
+
+    /* Posicionar botones */
+    #botones-accion {
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .no-print {
+      display: none;
+    }
+
+    button {
+      font-size: 16px;
+      padding: 10px 20px;
+      margin: 5px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      opacity: 0.9;
+    }
+
+    .row {
+      text-align: center;
+    }
+
+    /* Añadido para evitar que el contenido se corte y salte en PDF */
+    .document {
+      page-break-inside: avoid;
+      page-break-after: auto;
+      page-break-before: auto;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Contenedor principal del documento -->
+  <div class="document" id="presupuesto">
+    <!-- Encabezado -->
+    <div class="header">
+      <div class="logo-title">
+        <img src="/LOGO.png" alt="Logo Pisox">
+        <strong>Pisox</strong>
+      </div>
+      <div class="title">
+        <h2>Presupuesto</h2>
+      </div>
+    </div>
+
+    <!-- Datos del cliente -->
+    <div class="section">
+      <h3 style="text-align:center">Datos del Cliente:</h3>
+      <br><br>
+
+      <div class="row">
+        <div class="label" style="text-align:left">Presupuesto Nº:</div>
+        <div class="editable" id="presupuesto-numero"></div>
+      </div>
+      <div class="row">
+        <div class="label" style="text-align:left">Fecha:</div>
+        <div class="editable" contenteditable="false" id="fecha-presupuesto"></div>
+      </div>
+      <div class="row">
+        <div class="label" style="text-align:left">Nombre del cliente:</div>
+        <div class="editable" contenteditable="true"></div>
+      </div>
+      <div class="row">
+        <div class="label" style="text-align:left">Teléfono:</div>
+        <div class="editable" contenteditable="true"></div>
+      </div>
+      <div class="row">
+        <div class="label" style="text-align:left">Domicilio:</div>
+        <div class="editable" contenteditable="true"></div>
+      </div>
+    </div>
+
+    <!-- Datos de la empresa -->
+    <div class="section">
+      <h3 style="text-align:center">Nuestros datos:</h3>
+      <br><br>
+      <div class="row">
+        <div class="label" style="text-align:left">Empresa:</div>
+        <div class="editable">Pisox</div>
+      </div>
+      <div class="row">
+        <div class="label" style="text-align:left">Teléfono de contacto:</div>
+        <div class="editable">(381) 4760701</div>
+      </div>
+      <div class="row">
+        <div class="label" style="text-align:left">Domicilio:</div>
+        <div class="editable">Juan Bautista Alberdi 1489</div>
+      </div>
+    </div>
+
+    <!-- Detalle de trabajos -->
+    <table id="tabla-presupuesto">
+      <thead>
+        <tr class="table-title">
+          <th colspan="4">Mano de obra</th>
+        </tr>
+        <tr>
+          <th>Descripción</th>
+          <th>Cantidad</th>
+          <th>Precio unitario</th>
+          <th>Total</th>
+        </tr>
+      </thead>
+      <tbody id="cuerpo-trabajos">
+        <tr>
+          <td contenteditable="true" style="text-align: center;"></td>
+          <td contenteditable="true" style="text-align: center;"></td>
+          <td contenteditable="true" style="text-align: center;"></td>
+          <td contenteditable="false" style="text-align: center;">$0.00</td>
+        </tr>
+      </tbody>
+
+      <thead>
+        <tr class="table-title">
+          <th colspan="4">
+            Materiales:
+            <button id="toggle-materiales" onclick="toggleMateriales()"
+              style="background: none; border: none; color: black; cursor: pointer; font-size: inherit; padding: 0;">
+              No incluidos
+            </button>
+          </th>
+        </tr>
+        <tr id="materiales-subtitulos" style="display: none; background-color: #f4f4f4; text-align: center;">
+          <th>Material</th>
+          <th>Cantidad</th>
+          <th>Precio unitario</th>
+          <th>Total</th>
+        </tr>
+      </thead>
+      <tbody id="cuerpo-materiales">
+        <!-- filas materiales se agregan dinámicamente -->
+      </tbody>
+
+      <tfoot>
+        <tr class="totales">
+          <td colspan="3">Subtotal</td>
+          <td id="subtotal" style="text-align: center;">$0.00</td>
+        </tr>
+        <tr class="totales">
+          <td colspan="3">
+            IVA
+            <select id="iva-porcentaje" onchange="calcularTotalesGenerales()">
+              <option value="0" selected>0% (Exento)</option>
+              <option value="10.5">10.5% (Tasa reducida)</option>
+              <option value="21">21% (Tasa general)</option>
+              <option value="27">27% (Tasa diferencial)</option>
+            </select>
+          </td>
+          <td id="iva" style="text-align: center;">$0.00</td>
+        </tr>
+        <tr class="totales">
+          <td colspan="3">Total</td>
+          <td id="total" style="text-align: center;">$0.00</td>
+        </tr>
+      </tfoot>
+    </table>
+
+    <!-- Botones de acción -->
+    <div id="botones-accion">
+      <!-- Botones para trabajos -->
+      <button onclick="agregarFila()" style="background-color: #007bff; color: white;">➕ Trabajo</button>
+      <button onclick="eliminarFila()" style="background-color: #dc3545; color: white;">➖ Trabajo</button>
+
+      <!-- Botones para materiales -->
+      <button onclick="agregarFilaMateriales()" style="background-color: #007bff; color: white;">➕ Material</button>
+      <button onclick="eliminarFilaMateriales()" style="background-color: #dc3545; color: white;">➖ Material</button>
+    </div>
+
+    <!-- Nota de validez -->
+    <p style="text-align: center;">Este presupuesto tiene una validez de hasta 30 días luego de emitido, sin excepciones.</p>
+  </div>
+
+  <div style="text-align: center; margin-top: 40px;">
+    <button onclick="guardarComoImagen()" style="background-color: #007bff; color: white;">Emitir presupuesto (Imagen)</button>
+    <button onclick="guardarComoPDF()" style="background-color: #28a745; color: white;">Emitir presupuesto (PDF)</button>
+  </div>
+
+  <!-- Scripts externos -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+  <!-- Script funcional -->
+ <script>
+  let numeroPresupuesto = 0;
+
+  function mostrarNumeroPresupuesto() {
+    const presupuestoNumero = document.getElementById("presupuesto-numero");
+    if (presupuestoNumero) {
+      presupuestoNumero.innerText = numeroPresupuesto.toString().padStart(3, "0");
+    }
+  }
+
+  // Obtener número presupuesto del backend
+  function obtenerNumeroPresupuestoDelBackend() {
+    fetch("http://localhost:3000/numero")
+      .then(response => response.json())
+      .then(data => {
+        numeroPresupuesto = data.numero;
+        mostrarNumeroPresupuesto();
+      })
+      .catch(error => {
+        console.error("Error al obtener número de presupuesto del backend:", error);
+        numeroPresupuesto = 481; // fallback
+        mostrarNumeroPresupuesto();
+      });
+  }
+
+  // Guardar nuevo número en backend
+  function guardarNumeroPresupuestoEnBackend() {
+    fetch("http://localhost:3000/numero", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ numero: numeroPresupuesto })
+    }).catch(error => {
+      console.error("Error al guardar número de presupuesto en backend:", error);
+    });
+  }
+
+  function incrementarNumeroPresupuesto() {
+    numeroPresupuesto++;
+    guardarNumeroPresupuestoEnBackend();
+    mostrarNumeroPresupuesto();
+  }
+
+  function mostrarFechaActual() {
+    const fechaPresupuesto = document.getElementById("fecha-presupuesto");
+    if (fechaPresupuesto) {
+      const hoy = new Date();
+      const dia = hoy.getDate().toString().padStart(2, "0");
+      const mes = (hoy.getMonth() + 1).toString().padStart(2, "0");
+      const anio = hoy.getFullYear();
+      fechaPresupuesto.innerText = `${dia}/${mes}/${anio}`;
+    }
+  }
+
+  // Calcular totales mano de obra
+  function calcularTotalesManoDeObra() {
+    let subtotalTrabajos = 0;
+    document.querySelectorAll("#cuerpo-trabajos tr").forEach(fila => {
+      const cantidad = parseFloat(fila.cells[1].innerText) || 0;
+      const precioTexto = fila.cells[2].innerText.replace('$', '').trim();
+      const precioUnitario = parseFloat(precioTexto.replace(/\./g, '').replace(',', '.')) || 0;
+      const total = cantidad * precioUnitario;
+      fila.cells[3].innerText = isNaN(total) ? '' : `$${total.toLocaleString('es-AR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+      subtotalTrabajos += total;
+    });
+    return subtotalTrabajos;
+  }
+
+  // Calcular totales materiales
+  function calcularTotalesMateriales() {
+    let subtotalMateriales = 0;
+    document.querySelectorAll("#cuerpo-materiales tr").forEach(fila => {
+      const cantidad = parseFloat(fila.cells[1].innerText) || 0;
+      const precioTexto = fila.cells[2].innerText.replace('$', '').trim();
+      const precioUnitario = parseFloat(precioTexto.replace(/\./g, '').replace(',', '.')) || 0;
+      const total = cantidad * precioUnitario;
+      fila.cells[3].innerText = isNaN(total) ? '' : `$${total.toLocaleString('es-AR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+      subtotalMateriales += total;
+    });
+    return subtotalMateriales;
+  }
+
+  // Calcular totales generales
+  function calcularTotalesGenerales() {
+    const subtotalTrabajos = calcularTotalesManoDeObra();
+    const subtotalMateriales = calcularTotalesMateriales();
+    const subtotalGeneral = subtotalTrabajos + subtotalMateriales;
+
+    const ivaPorcentaje = parseFloat(document.getElementById("iva-porcentaje").value) || 0;
+    const iva = (subtotalGeneral * ivaPorcentaje) / 100;
+    const totalGeneral = subtotalGeneral + iva;
+
+    document.getElementById("subtotal").innerText = `$${subtotalGeneral.toLocaleString('es-AR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+    document.getElementById("iva").innerText = `$${iva.toLocaleString('es-AR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+    document.getElementById("total").innerText = `$${totalGeneral.toLocaleString('es-AR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+  }
+
+  // Agregar fila mano de obra
+  function agregarFila() {
+    const tbody = document.getElementById("cuerpo-trabajos");
+    const nuevaFila = document.createElement("tr");
+    nuevaFila.innerHTML = `
+      <td contenteditable="true" style="text-align: center;"></td>
+      <td contenteditable="true" style="text-align: center;"></td>
+      <td contenteditable="true" style="text-align: center;"></td>
+      <td contenteditable="false" style="text-align: center;">$0.00</td>
+    `;
+    tbody.appendChild(nuevaFila);
+    nuevaFila.addEventListener("input", calcularTotalesGenerales);
+  }
+
+  // Eliminar fila mano de obra
+  function eliminarFila() {
+    const tbody = document.getElementById("cuerpo-trabajos");
+    if (tbody.rows.length > 1) { // Dejar al menos una fila para editar
+      tbody.removeChild(tbody.lastChild);
+      calcularTotalesGenerales();
+    } else {
+      alert("Debe haber al menos una fila de trabajos.");
+    }
+  }
+
+  // Agregar fila materiales
+  function agregarFilaMateriales() {
+    const tbody = document.getElementById("cuerpo-materiales");
+    const nuevaFila = document.createElement("tr");
+    nuevaFila.innerHTML = `
+      <td contenteditable="true" style="text-align: center;"></td>
+      <td contenteditable="true" style="text-align: center;"></td>
+      <td contenteditable="true" style="text-align: center;"></td>
+      <td contenteditable="false" style="text-align: center;">$0.00</td>
+    `;
+    tbody.appendChild(nuevaFila);
+    nuevaFila.addEventListener("input", calcularTotalesGenerales);
+  }
+
+  // Eliminar fila materiales
+  function eliminarFilaMateriales() {
+    const tbody = document.getElementById("cuerpo-materiales");
+    if (tbody.rows.length > 0) {
+      tbody.removeChild(tbody.lastChild);
+      calcularTotalesGenerales();
+    } else {
+      alert("No puedes eliminar la fila predeterminada de materiales.");
+    }
+  }
+
+  // Toggle materiales
+  function toggleMateriales() {
+    const cuerpoMateriales = document.getElementById("cuerpo-materiales");
+    const subtitulosMateriales = document.getElementById("materiales-subtitulos");
+    const botonMateriales = document.getElementById("toggle-materiales");
+
+    if (cuerpoMateriales.style.display === "none" || cuerpoMateriales.style.display === "") {
+      cuerpoMateriales.style.display = "table-row-group";
+      subtitulosMateriales.style.display = "table-row";
+      botonMateriales.innerText = "Incluidos";
+
+      if (cuerpoMateriales.rows.length === 0) {
+        agregarFilaMateriales();
+      }
+    } else {
+      cuerpoMateriales.style.display = "none";
+      subtitulosMateriales.style.display = "none";
+      botonMateriales.innerText = "No incluidos";
+
+      // Limpia filas al ocultar
+      while (cuerpoMateriales.firstChild) {
+        cuerpoMateriales.removeChild(cuerpoMateriales.firstChild);
+      }
+      calcularTotalesGenerales();
+    }
+  }
+
+  // Guardar como imagen
+  function guardarComoImagen() {
+      ocultarBotones();
+    const contenido = document.getElementById("presupuesto");
+
+    html2canvas(contenido, { scale: 2, useCORS: true, backgroundColor: "#ffffff" }).then((canvas) => {
+      const enlace = document.createElement("a");
+      enlace.download = `presupuesto-${numeroPresupuesto.toString().padStart(3, "0")}.png`;
+      enlace.href = canvas.toDataURL("image/png");
+      enlace.click();
+
+      // Incrementar número solo DESPUÉS de guardar
+      incrementarNumeroPresupuesto();
+    });
+  }
+
+  // Ocultar botones de acción para impresión
+  function ocultarBotones() {
+    console.log("Ocultando botones...");
+    const botones = document.getElementById("botones-accion");
+    if (botones) botones.classList.add("no-print");
+  }
+
+  // Mostrar botones de acción después de impresión
+  function mostrarBotones() {
+    console.log("Mostrando botones...");
+    const botones = document.getElementById("botones-accion");
+    if (botones) botones.classList.remove("no-print");
+  }
+
+  // Guardar como PDF con configuración para evitar cortes y ocultando botones
+ async function guardarComoPDF() {
+  const contenido = document.getElementById("presupuesto");
+
+  ocultarBotones();
+
+  try {
+    const canvas = await html2canvas(contenido, {
+      scale: 2,
+      useCORS: true,
+      backgroundColor: "#ffffff",
+      scrollY: 0
+    });
+
+    const imgData = canvas.toDataURL('image/png');
+    const pdf = new jspdf.jsPDF('portrait', 'mm', 'a4');
+
+    const pdfWidth = pdf.internal.pageSize.getWidth();
+    const pdfHeight = pdf.internal.pageSize.getHeight();
+
+    // Calcular la altura proporcional para que no se corte y se ajuste al ancho del PDF
+    const imgProps = canvas.width / canvas.height;
+    const height = pdfWidth / imgProps;
+
+    pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, height);
+    pdf.save(`presupuesto-${numeroPresupuesto.toString().padStart(3, "0")}.pdf`);
+
+    incrementarNumeroPresupuesto();
+  } catch (error) {
+    console.error("Error al generar PDF:", error);
+  } finally {
+    mostrarBotones();
+  }
+}
+
+
+  // Al cargar la página
+  window.onload = function () {
+    obtenerNumeroPresupuestoDelBackend();
+    mostrarFechaActual();
+
+    // Actualizar totales si modificas la tabla
+    document.getElementById("tabla-presupuesto").addEventListener("input", calcularTotalesGenerales);
+
+    // Estado inicial: materiales NO incluidos (oculto)
+    const cuerpoMateriales = document.getElementById("cuerpo-materiales");
+    const subtitulosMateriales = document.getElementById("materiales-subtitulos");
+    const botonMateriales = document.getElementById("toggle-materiales");
+
+    cuerpoMateriales.style.display = "none";
+    subtitulosMateriales.style.display = "none";
+    botonMateriales.innerText = "No incluidos";
+
+    calcularTotalesGenerales();
+  };
+</script>
+
+</body>
+
+</html>
